@@ -95,7 +95,7 @@ const updateDonation = asyncHandler(async (req, res) => {
 });
 
 // Delete donation
- const deleteDonation = asyncHandler(async (req, res) => {
+const deleteDonation = asyncHandler(async (req, res) => {
   const donation = await Donation.findById(req.params.id);
 
   if (!donation) {

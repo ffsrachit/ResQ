@@ -75,7 +75,7 @@ export const deleteResource = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Resource not found");
     }
 
-    return res
+     return res
         .status(200)
         .json(new ApiResponse(200, null, "Resource deleted successfully"));
 });

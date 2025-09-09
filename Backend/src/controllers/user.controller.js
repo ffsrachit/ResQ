@@ -91,4 +91,4 @@ const getUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, users, "Users fetched successfully"));
 });
 
-export  { registerUser , loginUser , logoutUser , getUser };
+export { registerUser , loginUser , logoutUser , getUser };

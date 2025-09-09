@@ -16,7 +16,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
         description,
         location,
         severity,
-        reportedBy: req.userId 
+         reportedBy: req.userId 
     });
 
     return res

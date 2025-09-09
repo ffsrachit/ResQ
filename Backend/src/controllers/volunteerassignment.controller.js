@@ -62,7 +62,7 @@ export const updateAssignment = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Assignment not found");
     }
 
-    return res
+     return res
         .status(200)
         .json(new ApiResponse(200, assignment, "Assignment updated successfully"));
 });
