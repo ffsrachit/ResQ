@@ -45,7 +45,7 @@ const getAlertsByAudience = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 });
 
   return res
-    .status(200)
+     .status(200)
     .json(new ApiResponse(200, alerts, `Alerts for ${audience} fetched successfully`));
 });
 
