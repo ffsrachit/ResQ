@@ -12,7 +12,7 @@ import isAuthenticated from "../middlewares/auth.middleware.js";
 const router = Router();
 
 // Apply authentication middleware to all routes
-router.use(isAuthenticated);
+// router.use(isAuthenticated);
 
 // Routes
 router.route("/create").post(createDisaster);

@@ -1,10 +1,26 @@
-import { Button } from "@/components/ui/button"
+import Disasters from "./components/Disasters"
+import Home from "./components/Home"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: '/disasters',
+    element: <Disasters/>
+  },
+  {
+  }
+
+])
 
 function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
+    <>
+      <RouterProvider router={appRouter} />
+    </>
   )
 }
 
