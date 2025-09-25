@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setUser } from "@/redux/authSlice"; // adjust path
 
@@ -96,6 +96,10 @@ export default function Login() {
                 {loading ? "Logging in..." : "Login"}
               </button>
             </form>
+
+            <Link   to="/signup" className="text-sm text-blue-500 hover:underline block text-center mt-4">
+              Don't have an account? Sign up
+            </Link>
             
           </>
         ) : (

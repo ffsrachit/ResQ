@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -93,7 +93,6 @@ export default function Signup() {
             <option value="user">User</option>
             <option value="volunteer">Volunteer</option>
             <option value="ngo">NGO</option>
-            <option value="donor">Donor</option>
             <option value="admin">Admin</option>
           </select>
 
@@ -108,6 +107,9 @@ export default function Signup() {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
+        <Link to="/login" className="text-sm text-blue-500 hover:underline block text-center mt-4"> 
+          Already have an account? Login
+        </Link>
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
   const [alerts, setAlerts] = useState([]);
+  const { user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
 
   // Fetch live alerts from API
@@ -16,30 +18,57 @@ export default function HomePage() {
     }
   };
 
+  const handleClick = () => {
+    if (user) {
+      navigate("/donate");
+    } else {
+      navigate("/login");
+    }
+  };
+
   useEffect(() => {
     fetchAlerts();
-    // Optional: Refresh alerts every 5 minutes
     const interval = setInterval(fetchAlerts, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="flex flex-col items-center w-full text-center bg-gray-50 text-gray-800">
+      
       {/* Hero Section */}
-      <section className="relative w-full h-[80vh] flex flex-col justify-center items-center bg-[url('https://images.unsplash.com/photo-1603398938378-3b8d8e63f39f')] bg-cover bg-center text-white p-6">
-        <div className="bg-black/50 p-6 rounded-2xl">
+      <section className="relative w-full h-[80vh] flex flex-col justify-center items-center text-white p-6">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        >
+          <source
+            src="https://cdn.pixabay.com/video/2023/01/12/15/video-7660230.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-0"></div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 bg-black/50 p-6 rounded-2xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Disaster Relief When It Matters Most
           </h1>
           <p className="text-lg md:text-xl mb-6">
-            Providing resources, shelter, and hope to those affected by natural
-            calamities.
+            Providing resources, shelter, and hope to those affected by natural calamities.
           </p>
           <div className="flex gap-4 justify-center">
-            <button onClick={() => navigate('/donate')} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-2xl shadow-lg">
+            <button
+              onClick={handleClick}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-2xl shadow-lg"
+            >
               Donate Now
             </button>
-            
           </div>
         </div>
       </section>
@@ -68,8 +97,7 @@ export default function HomePage() {
       <section className="py-16 px-6 max-w-5xl">
         <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
         <p className="text-lg mb-8">
-          We work to deliver emergency relief, coordinate volunteers, and
-          distribute resources quickly during disasters.
+          We work to deliver emergency relief, coordinate volunteers, and distribute resources quickly during disasters.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-2xl shadow-md">
@@ -133,8 +161,7 @@ export default function HomePage() {
       <section className="py-16 px-6 max-w-4xl">
         <h2 className="text-3xl font-bold mb-8">Stories of Hope</h2>
         <div className="bg-white p-6 rounded-2xl shadow-md italic">
-          “Thanks to timely aid, we had shelter after the floods.” –{" "}
-          <b>Rani Devi, Bihar</b>
+          “Thanks to timely aid, we had shelter after the floods.” – <b>Rani Devi, Bihar</b>
         </div>
       </section>
 

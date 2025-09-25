@@ -1,25 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "@/redux/authSlice"; // adjust path
+import { setUser } from "@/redux/authSlice"; 
 import axios from "axios";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/user/logout", // backend logout endpoint
+        "http://localhost:8000/api/v1/user/logout",
         {},
-        { withCredentials: true } // send cookies
+        { withCredentials: true }
       );
-
-      dispatch(setUser(null)); // remove user from Redux
+      dispatch(setUser(null));
+      navigate("/");
+      
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -34,20 +36,19 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link to="/" className="hover:text-blue-600">Home</Link>
-          <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
-          <Link to="/resources" className="hover:text-blue-600">Resources</Link>
-
-          {/* Hide Volunteers if user role is "user" */}
-          {user?.role !== "user" && (
-            <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
-          )}
-
-          <Link to="/donate" className="hover:text-blue-600">Donation</Link>
-          <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
-          <Link to="/about" className="hover:text-blue-600">About</Link>
-        </div>
+        {user && (
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/" className="hover:text-blue-600">Home</Link>
+            <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
+            <Link to="/resources" className="hover:text-blue-600">Resources</Link>
+            {user?.role !== "user" && (
+              <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
+            )}
+            <Link to="/donate" className="hover:text-blue-600">Donation</Link>
+            <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
+            <Link to="/about" className="hover:text-blue-600">About</Link>
+          </div>
+        )}
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
@@ -77,10 +78,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           <Menu className="h-6 w-6" />
         </button>
       </div>
@@ -88,24 +86,21 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white border-t shadow-md px-4 py-3 space-y-3">
-          <Link to="/disasters" className="block">Disasters</Link>
-          <Link to="/resources" className="block">Resources</Link>
-
-          {/* Hide Volunteers for regular users */}
-          {user?.role !== "user" && (
-            <Link to="/volunteers" className="block">Volunteers</Link>
-          )}
-
-          <Link to="/donate" className="block">Donation</Link>
-          <Link to="/alerts" className="block">Alerts</Link>
-          <Link to="/about" className="block">About</Link>
-
-          <Link to="/request-help">
-            <Button className="w-full" variant="destructive">Request Help</Button>
-          </Link>
-
           {user ? (
-            <Button onClick={handleLogout} className="w-full" variant="outline">Logout</Button>
+            <>
+              <Link to="/disasters" className="block">Disasters</Link>
+              <Link to="/resources" className="block">Resources</Link>
+              {user?.role !== "user" && (
+                <Link to="/volunteers" className="block">Volunteers</Link>
+              )}
+              <Link to="/donate" className="block">Donation</Link>
+              <Link to="/alerts" className="block">Alerts</Link>
+              <Link to="/about" className="block">About</Link>
+              <Link to="/request-help">
+                <Button className="w-full" variant="destructive">Request Help</Button>
+              </Link>
+              <Button onClick={handleLogout} className="w-full" variant="outline">Logout</Button>
+            </>
           ) : (
             <div className="flex flex-col gap-2">
               <Link to="/login">
