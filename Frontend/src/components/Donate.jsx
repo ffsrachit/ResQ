@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./shared/Navbar";
 import { useSelector } from "react-redux";
+import { DONATION_API_END_POINT } from "@/utils/constants";
 
 export default function Donate() {
   const [donations, setDonations] = useState([]);
@@ -17,7 +18,7 @@ export default function Donate() {
   // Fetch all donations
   const fetchDonations = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/donation/getDono");
+      const res = await axios.get(`${DONATION_API_END_POINT}/getDono`);
       setDonations(res.data.data || []);
     } catch (err) {
       console.error(err);
@@ -50,7 +51,7 @@ export default function Donate() {
             };
 
       const res = await axios.post(
-        "http://localhost:8000/api/v1/donation/createDono",
+       `${DONATION_API_END_POINT}/createDono`,
         payload
       );
 
@@ -71,7 +72,7 @@ export default function Donate() {
     if (user?.role !== "admin") return; // only admins
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/v1/donation/updateDono/${id}`,
+        `${DONATION_API_END_POINT}/updateDono/${id}`,
         { status }
       );
       setDonations((prev) =>
@@ -85,7 +86,7 @@ export default function Donate() {
   // Delete donation
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/donation/deleteDono/${id}`);
+      await axios.delete(`${DONATION_API_END_POINT}/deleteDono/${id}`);
       setDonations((prev) => prev.filter((d) => d._id !== id));
     } catch (err) {
       console.error(err.response?.data || err.message);

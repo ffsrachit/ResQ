@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "@/redux/authSlice"; 
 import axios from "axios";
+import { USER_API_END_POINT } from "@/utils/constants";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/user/logout",
+        `${USER_API_END_POINT}/logout`,
         {},
         { withCredentials: true }
       );

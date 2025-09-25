@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ALERT_API_END_POINT } from "@/utils/constants";
 
 export default function HomePage() {
   const [alerts, setAlerts] = useState([]);
@@ -11,7 +12,7 @@ export default function HomePage() {
   // Fetch live alerts from API
   const fetchAlerts = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/alert/all");
+      const res = await axios.get(`${ALERT_API_END_POINT}/all`);
       setAlerts(res.data.data || []);
     } catch (err) {
       console.error("Failed to fetch alerts:", err);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { USER_API_END_POINT } from "@/utils/constants";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/user/register",
+        `${USER_API_END_POINT}/register`,
         payload
       );
 

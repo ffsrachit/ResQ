@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./shared/Navbar";
 import { useSelector } from "react-redux";
+import { ALERT_API_END_POINT } from "@/utils/constants";
 
 const Alert = () => {
   const { user } = useSelector((store) => store.auth); // get user from Redux
@@ -27,8 +28,8 @@ const Alert = () => {
     try {
       const url =
         audienceType === "all"
-          ? "http://localhost:8000/api/v1/alert/all"
-          : `http://localhost:8000/api/v1/alert/audience/${audienceType}`;
+          ? `${ALERT_API_END_POINT}/all`
+          : `${ALERT_API_END_POINT}/audience/${audienceType}`;
       const res = await axios.get(url);
       setAlerts(res.data.data);
     } catch (err) {
@@ -55,7 +56,7 @@ const Alert = () => {
     setError("");
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/alert/create",
+        `${ALERT_API_END_POINT}/create`,
         newAlert
       );
       setAlerts((prev) => [res.data.data, ...prev]);

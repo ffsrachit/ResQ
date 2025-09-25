@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./shared/Navbar";
+import { VOLUNTEER_API_END_POINT } from "@/utils/constants";
 
 export default function VolunteerAssignPage() {
   const [assignments, setAssignments] = useState([]);
@@ -18,7 +19,7 @@ export default function VolunteerAssignPage() {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/all`);
+        const res = await axios.get(`${VOLUNTEER_API_END_POINT}/all`);
         setAssignments(res.data.data || []);
       } catch (err) {
         console.error(err);
@@ -41,7 +42,7 @@ export default function VolunteerAssignPage() {
     try {
       if (editId) {
         // Update assignment
-        const res = await axios.put(`${BASE_URL}/${editId}`, {
+        const res = await axios.put(`${VOLUNTEER_API_END_POINT}/${editId}`, {
           userId,
           disasterId,
           task,
@@ -53,7 +54,7 @@ export default function VolunteerAssignPage() {
         setEditId(null);
       } else {
         // Create assignment
-        const res = await axios.post(`${BASE_URL}/create`, {
+        const res = await axios.post(`${VOLUNTEER_API_END_POINT}/create`, {
           userId,
           disasterId,
           task,
@@ -71,7 +72,7 @@ export default function VolunteerAssignPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this assignment?")) return;
     try {
-      await axios.delete(`${BASE_URL}/${id}`);
+      await axios.delete(`${VOLUNTEER_API_END_POINT}/${id}`);
       setAssignments((prev) => prev.filter((a) => a._id !== id));
     } catch (err) {
       console.error(err.response?.data || err.message);

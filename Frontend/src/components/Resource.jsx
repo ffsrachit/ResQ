@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./shared/Navbar";
+import { RESOURCE_API_END_POINT } from "@/utils/constants";
 
 export default function Resource() {
   const [resources, setResources] = useState([]);
@@ -17,7 +18,7 @@ export default function Resource() {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/resource/all");
+        const res = await axios.get(`${RESOURCE_API_END_POINT}/all`);
         setResources(res.data.data || []);
       } catch (err) {
         console.error(err);
@@ -41,7 +42,7 @@ export default function Resource() {
       if (editId) {
         // Update resource
         const response = await axios.put(
-          `http://localhost:8000/api/v1/resource/${editId}`,
+          `${RESOURCE_API_END_POINT}/${editId}`,
           {
             name,
             quantity: Number(quantity),
@@ -59,7 +60,7 @@ export default function Resource() {
       } else {
         // Create resource
         const response = await axios.post(
-          "http://localhost:8000/api/v1/resource/create",
+          `${RESOURCE_API_END_POINT}/create`,
           {
             name,
             quantity: Number(quantity),
@@ -84,7 +85,7 @@ export default function Resource() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this resource?")) return;
     try {
-      await axios.delete(`http://localhost:8000/api/v1/resource/${id}`);
+      await axios.delete(`${RESOURCE_API_END_POINT}/${id}`);
       setResources((prev) => prev.filter((res) => res._id !== id));
     } catch (error) {
       console.error(error.response?.data || error.message);

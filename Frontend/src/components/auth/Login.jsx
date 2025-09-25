@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setUser } from "@/redux/authSlice"; // adjust path
+import { USER_API_END_POINT } from "@/utils/constants";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/user/login",
+        `${USER_API_END_POINT}/login`,
         formData,{
                 headers: {
                     "Content-Type": "application/json"

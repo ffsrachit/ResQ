@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "./shared/Navbar";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { DISASTER_API_END_POINT } from "@/utils/constants";
 
 export default function Disasters() {
   const { user } = useSelector((store) => store.auth);
@@ -23,7 +24,7 @@ export default function Disasters() {
   const fetchDisasters = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/disaster/getD");
+      const res = await axios.get(`${DISASTER_API_END_POINT}/getD`);
       setDisasters(res.data.data || []);
     } catch (err) {
       console.error(err);
@@ -56,7 +57,7 @@ export default function Disasters() {
     setCreating(true);
     setError("");
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/disaster/create", formData);
+      const res = await axios.post(`${DISASTER_API_END_POINT}/create`, formData);
       setDisasters((prev) => [res.data.data, ...prev]);
       setFormData({ type: "", description: "", severity: "low", location: { lat: "", lng: "" } });
     } catch (err) {
@@ -69,7 +70,7 @@ export default function Disasters() {
   // Delete disaster (admin only)
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/disaster/delete/${id}`);
+      await axios.delete(`${DISASTER_API_END_POINT}/delete/${id}`);
       setDisasters((prev) => prev.filter((d) => d._id !== id));
     } catch (err) {
       console.error(err.response?.data || err.message);
@@ -79,10 +80,10 @@ export default function Disasters() {
   // Update disaster status (admin only)
   const handleUpdateStatus = async (id, status) => {
     try {
-      const res = await axios.put(`http://localhost:8000/api/v1/disaster/update/${id}`, { status });
+      const res = await axios.put(`${DISASTER_API_END_POINT}/update/${id}`, { status });
       setDisasters((prev) => prev.map((d) => (d._id === id ? res.data.data : d)));
     } catch (err) {
-      console.error(err);
+      console.error(err.response?.data || err.message);
     }
   };
 
