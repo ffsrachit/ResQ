@@ -1,6 +1,10 @@
+
 import Disasters from "./components/Disasters"
 import Home from "./components/Home"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Resource from "./components/Resource"
+import About from "./components/About"
+import VolunteerAssignPage from "./components/VolunteerAssignPage"
 
 const appRouter = createBrowserRouter([
   {
@@ -12,6 +16,16 @@ const appRouter = createBrowserRouter([
     element: <Disasters/>
   },
   {
+    path: 'resources',
+    element: <Resource/>
+  },
+  {
+    path:'/about',
+    element:<About/>
+  },
+  {
+    path: 'Volunteers',
+    element: <VolunteerAssignPage/>
   }
 
 ])

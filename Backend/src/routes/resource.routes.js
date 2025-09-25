@@ -11,7 +11,7 @@ import isAuthenticated from "../middlewares/auth.middleware.js";
 const router = Router();
 
 // Optional: Protect routes with authentication
-router.use(isAuthenticated);
+// router.use(isAuthenticated);
 
 router.post("/create", createResource);
 router.get("/all", getAllResources);
