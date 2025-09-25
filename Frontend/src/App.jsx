@@ -6,7 +6,7 @@ import Resource from "./components/Resource"
 import About from "./components/About"
 import VolunteerAssignPage from "./components/VolunteerAssignPage"
 import Donate from "./components/Donate"
-import Alert from "./components/alert"
+import Alert from "./components/Alert"
 import Signup from "./components/auth/Signup"
 import Login from "./components/auth/Login"
 const appRouter = createBrowserRouter([
