@@ -155,7 +155,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="w-full bg-gray-800 text-white py-6 mt-10">
-        <p>📞 +91-9876543210 | ✉️ contact@relief.org</p>
+        <p>📞 +91-12345678 | ✉️ contact@relief.org</p>
         <div className="flex gap-4 justify-center mt-2">
           <span>🌐</span>
           <span>📘</span>
