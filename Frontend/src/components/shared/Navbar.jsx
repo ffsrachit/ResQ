@@ -16,16 +16,18 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
+          <Link to="/" className="hover:text-blue-600">Home</Link>
           <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
           <Link to="/resources" className="hover:text-blue-600">Resources</Link>
           <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
           <Link to="/about" className="hover:text-blue-600">About</Link>
+          <Link to="/donate" className="hover:text-blue-600">Donation</Link>
+          <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
         </div>
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
           <Button variant="destructive">Request Help</Button>
-          <Button>Donate</Button>
           <Button variant="outline">Login</Button>
         </div>
 
@@ -45,8 +47,10 @@ export default function Navbar() {
           <Link to="/resources" className="block">Resources</Link>
           <Link to="/volunteers" className="block">Volunteers</Link>
           <Link to="/about" className="block">About</Link>
+          <Link to="/donate" className="block">Donation</Link>
+           <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
           <Button className="w-full" variant="destructive">Request Help</Button>
-          <Button className="w-full">Donate</Button>
+          
           <Button className="w-full" variant="outline">Login</Button>
         </div>
       )}

@@ -5,7 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Resource from "./components/Resource"
 import About from "./components/About"
 import VolunteerAssignPage from "./components/VolunteerAssignPage"
-
+import Donate from "./components/Donate"
+import Alert from "./components/alert"
 const appRouter = createBrowserRouter([
   {
     path: '/',
@@ -26,6 +27,18 @@ const appRouter = createBrowserRouter([
   {
     path: 'Volunteers',
     element: <VolunteerAssignPage/>
+  },
+  {
+    path: 'donate',
+    element:<Donate/>
+  },
+  {
+    path: '/',
+    element: <Home/>
+  },
+  {
+    path: '/alerts',
+    element: <Alert/>
   }
 
 ])

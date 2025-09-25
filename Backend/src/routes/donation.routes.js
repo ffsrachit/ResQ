@@ -4,13 +4,13 @@ import isAuthenticated from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// Public routes (no authentication needed)
+
 router.route("/getDono").get(getAllDonations);
 router.route("/getDono/:id").get(getDonationById);
 
 // Protected routes (authentication required)
-router.route("/createDono").post(isAuthenticated, createDonation);
-router.route("/updateDono/:id").put(isAuthenticated, updateDonation);
-router.route("/deleteDono/:id").delete(isAuthenticated, deleteDonation);
+router.route("/createDono").post( createDonation);
+router.route("/updateDono/:id").put( updateDonation);
+router.route("/deleteDono/:id").delete( deleteDonation);
 
 export default router;
