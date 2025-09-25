@@ -10,7 +10,7 @@ deleteAssignment,
 
 const router = Router();
 
-// router.use(isAuthenticated);
+router.use(isAuthenticated);
 
 router.post("/create", createVolAssign);
 router.get("/all", getAllAssignments);

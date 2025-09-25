@@ -12,13 +12,13 @@ import isAuthenticated from "../middlewares/auth.middleware.js";
 const router = Router();
 
 // Apply authentication middleware to all routes
-// router.use(isAuthenticated);
+
 
 // Routes
-router.route("/create").post(createDisaster);
+router.route("/create").post(isAuthenticated ,createDisaster);
 router.route("/getD").get(getAllDisasters);
 router.route("/getS/:id").get(getDisasterById);        
-router.route("/update/:id").put(updateDisaster);      
-router.route("/delete/:id").delete(deleteDisaster);    
+router.route("/update/:id").put(isAuthenticated ,updateDisaster);      
+router.route("/delete/:id").delete(isAuthenticated,deleteDisaster);    
 
 export default router;

@@ -21,7 +21,6 @@ export default function Navbar() {
       );
       dispatch(setUser(null));
       navigate("/");
-      
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -36,19 +35,21 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        {user && (
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="hover:text-blue-600">Home</Link>
-            <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
-            <Link to="/resources" className="hover:text-blue-600">Resources</Link>
-            {user?.role !== "user" && (
-              <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
-            )}
-            <Link to="/donate" className="hover:text-blue-600">Donation</Link>
-            <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
-            <Link to="/about" className="hover:text-blue-600">About</Link>
-          </div>
-        )}
+        <div className="hidden md:flex items-center gap-6">
+          <Link to="/" className="hover:text-blue-600">Home</Link>
+          <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
+          <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
+          <Link to="/about" className="hover:text-blue-600">About</Link>
+          {user && (
+            <>
+              <Link to="/resources" className="hover:text-blue-600">Resources</Link>
+              {user?.role !== "user" && (
+                <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
+              )}
+              <Link to="/donate" className="hover:text-blue-600">Donation</Link>
+            </>
+          )}
+        </div>
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
@@ -86,20 +87,23 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white border-t shadow-md px-4 py-3 space-y-3">
+          <Link to="/disasters" className="block">Disasters</Link>
+          <Link to="/alerts" className="block">Alerts</Link>
+          <Link to="/about" className="block">About</Link>
+
           {user ? (
             <>
-              <Link to="/disasters" className="block">Disasters</Link>
               <Link to="/resources" className="block">Resources</Link>
               {user?.role !== "user" && (
                 <Link to="/volunteers" className="block">Volunteers</Link>
               )}
               <Link to="/donate" className="block">Donation</Link>
-              <Link to="/alerts" className="block">Alerts</Link>
-              <Link to="/about" className="block">About</Link>
               <Link to="/request-help">
                 <Button className="w-full" variant="destructive">Request Help</Button>
               </Link>
-              <Button onClick={handleLogout} className="w-full" variant="outline">Logout</Button>
+              <Button onClick={handleLogout} className="w-full" variant="outline">
+                Logout
+              </Button>
             </>
           ) : (
             <div className="flex flex-col gap-2">

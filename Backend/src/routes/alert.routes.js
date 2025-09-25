@@ -4,9 +4,9 @@ import isAuthenticated from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// router.use(isAuthenticated);
 
-router.post("/create", createAlert);
+
+router.post("/create", isAuthenticated ,createAlert);
 router.get("/all", getAllAlerts);
 router.get("/audience/:audience", getAlertsByAudience);
 
