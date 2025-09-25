@@ -1,6 +1,7 @@
 // src/components/Alert.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "./shared/Navbar";
 
 const Alert = () => {
   const [alerts, setAlerts] = useState([]);
@@ -67,6 +68,7 @@ const Alert = () => {
   }, [audience]);
 
   return (
+    <><Navbar/>
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Alerts</h1>
 
@@ -168,6 +170,7 @@ const Alert = () => {
         ))}
       </ul>
     </div>
+    </>
   );
 };
 

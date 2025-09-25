@@ -1,17 +1,37 @@
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice"; // adjust path
+import axios from "axios";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:8000/api/v1/user/logout", // your backend logout endpoint
+        {},
+        { withCredentials: true } // important for sending cookies
+      );
+
+      // Clear user from Redux
+      dispatch(setUser(null));
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <nav className="bg-white border-b shadow-sm sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link to="/" className="text-xl font-bold text-blue-600">
-          DRRM Portal
+          ResQ
         </Link>
 
         {/* Desktop Menu */}
@@ -27,8 +47,29 @@ export default function Navbar() {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="destructive">Request Help</Button>
-          <Button variant="outline">Login</Button>
+          {user ? (
+            <Button
+              onClick={handleLogout}
+              className="border border-red-500 text-red-500 font-semibold py-2 px-6 rounded-lg hover:bg-red-50 transition-colors duration-300"
+            >
+              Logout
+            </Button>
+          ) : (
+            <div className="flex gap-4">
+              <Link
+                to="/login"
+                className="border border-blue-600 text-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="border border-green-600 text-green-600 font-semibold py-2 px-6 rounded-lg hover:bg-green-50 transition-colors duration-300"
+              >
+                Signup
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -48,12 +89,26 @@ export default function Navbar() {
           <Link to="/volunteers" className="block">Volunteers</Link>
           <Link to="/about" className="block">About</Link>
           <Link to="/donate" className="block">Donation</Link>
-           <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
-          <Button className="w-full" variant="destructive">Request Help</Button>
-          
-          <Button className="w-full" variant="outline">Login</Button>
+          <Link to="/alerts" className="block">Alerts</Link>
+
+          <Link to="/request-help">
+            <Button className="w-full" variant="destructive">Request Help</Button>
+          </Link>
+
+          {user ? (
+            <Button onClick={handleLogout} className="w-full" variant="outline">Logout</Button>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <Link to="/login">
+                <Button className="w-full" variant="outline">Login</Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="w-full" variant="outline">Signup</Button>
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </nav>
-  )
+  );
 }
