@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./shared/Navbar";
+import { useSelector } from "react-redux";
 
 export default function Donate() {
   const [donations, setDonations] = useState([]);
@@ -10,6 +11,8 @@ export default function Donate() {
     resourceName: "",
     resourceQuantity: "",
   });
+
+  const { user } = useSelector((state) => state.auth); // get logged-in user
 
   // Fetch all donations
   const fetchDonations = async () => {
@@ -63,8 +66,9 @@ export default function Donate() {
     }
   };
 
-  // Update donation status
+  // Update donation status (admins only)
   const handleUpdateStatus = async (id, status) => {
+    if (user?.role !== "admin") return; // only admins
     try {
       const res = await axios.put(
         `http://localhost:8000/api/v1/donation/updateDono/${id}`,
@@ -174,7 +178,8 @@ export default function Donate() {
                     </td>
                     <td className="border px-4 py-2 capitalize">{d.status}</td>
                     <td className="border px-4 py-2 space-x-2">
-                      {d.status !== "completed" && (
+                      {/* Only admins can update status */}
+                      {user?.role === "admin" && d.status !== "completed" && (
                         <button
                           onClick={() => handleUpdateStatus(d._id, "completed")}
                           className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"

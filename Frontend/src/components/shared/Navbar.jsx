@@ -14,13 +14,12 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/user/logout", // your backend logout endpoint
+        "http://localhost:8000/api/v1/user/logout", // backend logout endpoint
         {},
-        { withCredentials: true } // important for sending cookies
+        { withCredentials: true } // send cookies
       );
 
-      // Clear user from Redux
-      dispatch(setUser(null));
+      dispatch(setUser(null)); // remove user from Redux
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -39,10 +38,15 @@ export default function Navbar() {
           <Link to="/" className="hover:text-blue-600">Home</Link>
           <Link to="/disasters" className="hover:text-blue-600">Disasters</Link>
           <Link to="/resources" className="hover:text-blue-600">Resources</Link>
-          <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
-          <Link to="/about" className="hover:text-blue-600">About</Link>
+
+          {/* Hide Volunteers if user role is "user" */}
+          {user?.role !== "user" && (
+            <Link to="/volunteers" className="hover:text-blue-600">Volunteers</Link>
+          )}
+
           <Link to="/donate" className="hover:text-blue-600">Donation</Link>
           <Link to="/alerts" className="hover:text-blue-600">Alerts</Link>
+          <Link to="/about" className="hover:text-blue-600">About</Link>
         </div>
 
         {/* CTA Buttons */}
@@ -86,10 +90,15 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-t shadow-md px-4 py-3 space-y-3">
           <Link to="/disasters" className="block">Disasters</Link>
           <Link to="/resources" className="block">Resources</Link>
-          <Link to="/volunteers" className="block">Volunteers</Link>
-          <Link to="/about" className="block">About</Link>
+
+          {/* Hide Volunteers for regular users */}
+          {user?.role !== "user" && (
+            <Link to="/volunteers" className="block">Volunteers</Link>
+          )}
+
           <Link to="/donate" className="block">Donation</Link>
           <Link to="/alerts" className="block">Alerts</Link>
+          <Link to="/about" className="block">About</Link>
 
           <Link to="/request-help">
             <Button className="w-full" variant="destructive">Request Help</Button>
