@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser'
 
 const app = express()
 app.use(cors({
-    origin :["https://resq-2-45pv.onrender.com"],
+    origin :["https://resq-xvu1.onrender.com"],
     credentials : true
 }))
 
