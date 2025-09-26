@@ -1,5 +1,4 @@
 import { Router } from "express";
-import isAuthenticated from "../middlewares/auth.middleware.js";
 import {
 createVolAssign,
 getAllAssignments,
@@ -10,7 +9,7 @@ deleteAssignment,
 
 const router = Router();
 
-router.use(isAuthenticated);
+
 
 router.post("/create", createVolAssign);
 router.get("/all", getAllAssignments);

@@ -6,11 +6,11 @@ import {
   updateResource,
   deleteResource,
 } from "../controllers/resource.controller.js";
-import isAuthenticated from "../middlewares/auth.middleware.js";
+
 
 const router = Router();
 
-// Optional: Protect routes with authentication
+
 
 
 router.post("/create", createResource);

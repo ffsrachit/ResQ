@@ -6,7 +6,7 @@ const router = Router();
 
 
 
-router.post("/create", isAuthenticated ,createAlert);
+router.post("/create",createAlert);
 router.get("/all", getAllAlerts);
 router.get("/audience/:audience", getAlertsByAudience);
 

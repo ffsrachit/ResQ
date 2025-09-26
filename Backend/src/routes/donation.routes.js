@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createDonation, getAllDonations, getDonationById, updateDonation, deleteDonation } from "../controllers/donation.controller.js";
-import isAuthenticated from "../middlewares/auth.middleware.js";
+
 
 const router = Router();
 

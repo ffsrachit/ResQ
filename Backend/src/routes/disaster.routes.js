@@ -15,10 +15,10 @@ const router = Router();
 
 
 // Routes
-router.route("/create").post(isAuthenticated ,createDisaster);
+router.route("/create").post(createDisaster);
 router.route("/getD").get(getAllDisasters);
 router.route("/getS/:id").get(getDisasterById);        
-router.route("/update/:id").put(isAuthenticated ,updateDisaster);      
-router.route("/delete/:id").delete(isAuthenticated,deleteDisaster);    
+router.route("/update/:id").put(updateDisaster);      
+router.route("/delete/:id").delete(deleteDisaster);    
 
 export default router;
